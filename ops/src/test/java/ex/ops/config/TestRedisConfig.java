@@ -6,21 +6,43 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.StringUtils;
 import redis.embedded.RedisServer;
 
 @Configuration
 public class TestRedisConfig {
 
+    @Value("${spring.data.redis.host}")
+    private String host;
     @Value("${spring.data.redis.port}")
-    private int redisPort;
+    private int port;
 
     private RedisServer redisServer;
 
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory() {
+        return new LettuceConnectionFactory(host, port);
+    }
+
+    @Bean
+    public RedisTemplate<?, ?> redisTemplate() {
+        RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        return redisTemplate;
+    }
+
     @PostConstruct
     public void redisServer() throws IOException {
-        int port = isRedisRunning() ? findAvailablePort() : redisPort;
+        int port = isRedisRunning() ? findAvailablePort() : this.port;
         redisServer = RedisServer.newRedisServer()
             .port(port)
             .setting("maxmemory 128M")
@@ -34,13 +56,12 @@ public class TestRedisConfig {
             redisServer.stop();
         }
     }
-
-
+    
     /**
      * Embedded Redis가 현재 실행중인지 확인
      */
     private boolean isRedisRunning() throws IOException {
-        return isRunning(executeGrepProcessCommand(redisPort));
+        return isRunning(executeGrepProcessCommand(port));
     }
 
     /**
