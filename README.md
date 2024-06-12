@@ -9,3 +9,4 @@
 |-|
 |[String](https://github.com/lycoris62/all-of-redis/blob/main/ops/src/test/java/ex/ops/string/StringTypeTest.java)|
 |[List](https://github.com/lycoris62/all-of-redis/blob/main/ops/src/test/java/ex/ops/list/ListTypeTest.java)|
+|[Hash](https://github.com/lycoris62/all-of-redis/blob/main/ops/src/test/java/ex/ops/hash/HashTypeTest.java)|
