@@ -1,4 +1,4 @@
-package ex.ops;
+package ex.ops.list;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
