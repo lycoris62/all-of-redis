@@ -7,5 +7,5 @@
 
 |자료구조|
 |-|
-|[String](https://github.com/lycoris62/all-of-redis/blob/main/ops/src/test/java/ex/ops/StringTypeTest.java)|
-|[List](https://github.com/lycoris62/all-of-redis/blob/main/ops/src/test/java/ex/ops/ListTypeTest.java)|
+|[String](https://github.com/lycoris62/all-of-redis/blob/main/ops/src/test/java/ex/ops/string/StringTypeTest.java)|
+|[List](https://github.com/lycoris62/all-of-redis/blob/main/ops/src/test/java/ex/ops/list/ListTypeTest.java)|
