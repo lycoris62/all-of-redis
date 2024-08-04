@@ -23,10 +23,10 @@ public class RedisPubService {
      */
     public void pubMsgChannel(String channel, MessageDto message) {
 
-        //1. 요청한 Channel 을 구독.
-        redisMessageListenerContainer.addMessageListener(redisSubscribeListener, ChannelTopic.of(channel));
+        // 구독자가 특정 토픽에 구독할 때 사용. 주석 풀면 RedisSubscribeListener 에 의해 로그로 메시지 볼 수 있음
+//        redisMessageListenerContainer.addMessageListener(redisSubscribeListener, ChannelTopic.of(channel));
 
-        //2. Message 전송
+        // 구독자에게 메시지 전송
         redisPublisher.publish(ChannelTopic.of(channel), message);
     }
 
