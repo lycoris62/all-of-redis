@@ -7,6 +7,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -31,4 +32,15 @@ public class RedisConfig {
     public StringRedisTemplate stringRedisTemplate() {
         return new StringRedisTemplate(redisConnectionFactory());
     }
+
+    /**
+     * Redis pub/sub 메시지 처리 Listener
+     */
+    @Bean
+    public RedisMessageListenerContainer redisMessageListener() {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(redisConnectionFactory());
+        return container;
+    }
+
 }
