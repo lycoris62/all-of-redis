@@ -1,0 +1,10 @@
+POST http://localhost:8080/redis/pubsub/send?channel=home
+Content-Type: application/json
+
+{
+  "messageId": "abcde",
+  "sender": "1234",
+  "message": "가나다"
+}
+
+###
