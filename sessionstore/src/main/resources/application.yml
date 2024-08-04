@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:db
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  session:
+    store-type: redis
+  docker:
+    compose:
+      lifecycle-management: start_and_stop
